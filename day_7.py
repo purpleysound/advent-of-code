@@ -1040,5 +1040,10 @@ def navigate(current_folder, old_line_no):
 while current_line < len(file_system):  
     navigate("/", current_line)
 print(directory_size_dict)
+for key in directory_size_dict:
+    if directory_size_dict[key] < 100000:
+        score += directory_size_dict[key]
+
+print(score)
             
 
