@@ -1024,7 +1024,6 @@ for line in file_system:
     if "/".join(directory) not in directory_size_dict:
         directory_size_dict["/".join(directory)] = 0
     if line[0][0] in "0123456789":
-        print(directory)
         for i, folder in enumerate(directory):
             directory_size_dict["/".join(directory[:i+1])] += int(line[0])
     if line[0] == "$" and line[1] == "cd":
@@ -1039,7 +1038,22 @@ for key in directory_size_dict:
     if directory_size_dict[key] <= 100000:
         score += directory_size_dict[key]
     
-print(directory_size_dict)
-print(score)
+#print(directory_size_dict)
+#print(score)
+#print()
+#part 2
+unused = 70000000 - directory_size_dict["/"]
+print(unused)
+needed = 30000000 - unused
+print(needed)
+number_list = []
+for key in directory_size_dict:
+    number_list.append(directory_size_dict[key])
+number_list.sort()
+
+
+print(number_list)
+
+
             
 
