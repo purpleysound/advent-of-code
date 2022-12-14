@@ -1999,6 +1999,15 @@ L 2
 D 16
 L 4"""
 
+instructions1 = """R 4
+U 4
+L 3
+D 1
+R 4
+D 1
+L 5
+R 2"""
+
 head = (0,0)
 tail=(0,0)
 locations = []
