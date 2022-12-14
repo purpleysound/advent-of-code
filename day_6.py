@@ -5,8 +5,8 @@ for i, letter in enumerate(input):
     if i < 4:
         pass
     else:
-        last_4 = [input[i], input[i-1], input[i-2], input[i-3]]
-        if len(last_4) == len(list(set(last_4))):
+        last_4 = [input[i-3:i]
+        if len(last_4) == len(set(last_4)):
             print(i+1)
             break
 
