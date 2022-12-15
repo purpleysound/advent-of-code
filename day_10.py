@@ -177,7 +177,7 @@ X = 1
 for line in program:
     if line.split(" ")[0] == "noop":
         if abs(X-(cycle-1)%40) <= 1:
-            print("#", end="")
+            print("█", end="")
         else:
             print(".", end="")
         if cycle % 40 == 0:
@@ -186,14 +186,14 @@ for line in program:
     else:
         operand = line.split(" ")[1]
         if abs(X-(cycle-1)%40) <= 1:
-            print("#", end="")
+            print("█", end="")
         else:
             print(".", end="")
         if cycle % 40 == 0:
             print()
         cycle += 1
         if abs(X-(cycle-1)%40) <= 1:
-            print("#", end="")
+            print("█", end="")
         else:
             print(".", end="")
         if cycle % 40 == 0:
