@@ -113,7 +113,7 @@ for row_index, row in enumerate(rows):
 
         below = len(rows)-1 - row_index
         while below > 0:
-            if int(rows[len(rows)-1-below][tree_index]) >= int(tree):
+            if int(rows[len(rows)-below][tree_index]) >= int(tree):
                 break
             below -= 1
         else:
@@ -130,7 +130,7 @@ for row_index, row in enumerate(rows):
 
         right = len(rows)-1 - tree_index
         while right > 0:
-            if int(rows[row_index][len(rows)-1-right]) >= int(tree):
+            if int(rows[row_index][len(rows)-right]) >= int(tree):
                 break
             right -= 1
         else:
