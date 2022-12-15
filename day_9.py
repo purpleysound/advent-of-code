@@ -2011,19 +2011,19 @@ R 2"""
 head = (0,0)
 tail=(0,0)
 locations = []
-def up():
+def up(head):
     return (head[0], head[1]+1)
 
-def down():
+def down(head):
     return (head[0], head[1]-1)
 
-def right():
+def right(head):
     return (head[0]+1, head[1])
 
-def left():
+def left(head):
     return (head[0]-1, head[1])
 
-def move_tail():
+def move_tail(tail: tuple, head: tuple) -> tuple:
     #this function is just "if" hell, i am aware 
     displacement = (head[0]-tail[0], head[1]-tail[1])
     if (abs(displacement[0]) == 0 or abs(displacement[0]) == 1) and (abs(displacement[1]) == 0 or abs(displacement[1]) == 1):
@@ -2044,15 +2044,29 @@ def move_tail():
         case (False, True):
             return (tail[0]-1, tail[1]+1)
         case (False, False):
-            return (tail[0]-1, tail[1]+1)
+            return (tail[0]-1, tail[1]-1)
     
 
 letter_to_direction_dict = {"U": up, "D": down, "R": right, "L": left}
 instructions = instructions.split("\n")
 for instruction in instructions:
     for _ in range(int(instruction.split(" ")[1])):
-        head = letter_to_direction_dict[instruction.split(" ")[0]]()
-        tail = move_tail()
+        head = letter_to_direction_dict[instruction.split(" ")[0]](head)
+        tail = move_tail(tail, head)
         locations.append(tail)
   
+print(len(set(locations)))
+
+#part 2
+locations = []
+knots = [(0,0) for _ in range(10)]
+for instruction in instructions:
+    for _ in range(int(instruction.split(" ")[1])):
+        knots[0] = letter_to_direction_dict[instruction.split(" ")[0]](knots[0])
+        for i, knot in enumerate(knots):
+            if i == 0:
+                continue
+            knots[i] = move_tail(knots[i], knots[i-1])
+        locations.append(knots[9])
+
 print(len(set(locations)))
