@@ -139,5 +139,61 @@ for row_index, row in enumerate(rows):
         if visible:
             score += 1
 
-
 print(score)
+
+#part 2
+score = 0
+top_score = 0
+rows = trees.split("\n")
+for row_index, row in enumerate(rows):
+    for tree_index, tree in enumerate(row):
+        visible = False
+        view_up = 0
+        view_down = 0
+        view_left = 0
+        view_right = 0
+        above = row_index
+        while above > 0:
+            if int(rows[above-1][tree_index]) >= int(tree):
+                view_up += 1
+                break
+            view_up += 1
+            above -= 1
+        else:
+            visible = True
+
+        below = len(rows)-1 - row_index
+        while below > 0:
+            if int(rows[len(rows)-below][tree_index]) >= int(tree):
+                view_down += 1
+                break
+            view_down += 1
+            below -= 1
+        else:
+            visible = True
+
+        left = tree_index
+        while left > 0:
+            obstructing_tree = rows[row_index][left-1]
+            if int(obstructing_tree) >= int(tree):
+                view_left += 1
+                break
+            view_left += 1
+            left -= 1
+        else:
+            visible = True
+
+        right = len(rows)-1 - tree_index
+        while right > 0:
+            if int(rows[row_index][len(rows)-right]) >= int(tree):
+                view_right += 1
+                break
+            view_right += 1
+            right -= 1
+        else:
+            visible = True
+
+        score = view_left*view_right*view_down*view_up
+        top_score = score if score>top_score else top_score
+
+print(top_score)
