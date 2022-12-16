@@ -53,8 +53,8 @@ Monkey 7:
   Test: divisible by 2
     If true: throw to monkey 0
     If false: throw to monkey 6"""
-import sys
-sys.set_int_max_str_digits(1000000)
+
+BIG_NUMBER = 5*17*7*13*19*3*11*2
 
 class Monkey:
     def __init__(self, items, operation, test, if_true, if_false):
@@ -72,10 +72,10 @@ class Monkey:
             item = eval(str(item)+self.operation)
             if item % self.test == 0:
                 self.items.remove(old_item)
-                monkeys[self.if_true].items.append(item)
+                monkeys[self.if_true].items.append(item%BIG_NUMBER)
             else:
                 self.items.remove(old_item)
-                monkeys[self.if_false].items.append(item)
+                monkeys[self.if_false].items.append(item%BIG_NUMBER)
 
 monkeys = []
 monkeys.append(Monkey([74, 64, 74, 63, 53], "*7", 5, 1, 6))
