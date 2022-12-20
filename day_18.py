@@ -2824,31 +2824,46 @@ for coordinate in coordinates:
 
 print(score)
 #part 2
+from collections import deque
+OUTSIDE = (-1,-1,-1)
 
-def negative_in(coordinate: tuple) -> bool:
-    for i, number in enumerate(coordinate):
-        if abs(number) != coordinate[i]:
+def can_reach(start):
+    """copied from the internet, takes roughly 8 hours to run (i left it on overnight), might revisit this as its obviously not the intended solution"""
+    # Create a queue to store the nodes to visit
+    queue = deque([start])
+
+    # Create a set to store the visited nodes
+    visited = set()
+
+    # While there are nodes in the queue
+    while queue:
+        # Get the next node to visit
+        node = queue.popleft()
+
+        # If the node is the end coordinate, return True
+        x, y, z = node
+        if x < 0 or x > 22 or y < 0 or y > 22 or z < 0 or z > 22:
             return True
-    return False
 
-def outside_access(coordinate: tuple, attempts=0) -> bool:
-    if attempts == 50:
-        return False
-    if abs(coordinate[0]) > 22 or abs(coordinate[1]) > 22 or abs(coordinate[2]) > 22 or negative_in(coordinate):
-        return True
-    for neighbour in get_neighbours(coordinate):
-        if neighbour in coordinates:
-            continue
-        if outside_access(neighbour, attempts=attempts+1):
-            return True
-    return False
+        # Add the node to the visited set
+        visited.add(node)
 
+        # Get the neighbors of the node
+        neighbors = get_neighbours(node)
+
+        # Add the unvisited neighbors to the queue
+        for neighbor in neighbors:
+            if neighbor not in visited and neighbor not in coordinates:
+                queue.append(neighbor)
+
+    # If we reach here, it means we didn't find a path to the end coordinate
+    return False
 
 score = 0
 for i, coordinate in enumerate(coordinates):
     print(i)
     for neighbour in get_neighbours(coordinate):
-        if neighbour not in coordinates and outside_access(neighbour):
+        if neighbour not in coordinates and can_reach(neighbour):
             score += 1
 
 print(score)
