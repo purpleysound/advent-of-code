@@ -1619,18 +1619,18 @@ bqpl = chts / qzcv
 pcwg = fpdf + trfn"""
 
 undefined_monkey_list = monkey_list.split("\n")
-defined_monkey_list = {}
+defined_monkey_dict = {}
 while undefined_monkey_list:
     for monkey in undefined_monkey_list[:]:
         for number in "1234567890":
             if number in monkey:
                 if monkey in undefined_monkey_list:
-                    defined_monkey_list[monkey[:4]] = eval(monkey[7:])
+                    defined_monkey_dict[monkey[:4]] = eval(monkey[7:])
                     undefined_monkey_list.remove(monkey)
 
         if monkey in undefined_monkey_list:
-            if monkey[7:11] in defined_monkey_list and monkey[14:] in defined_monkey_list:
-                defined_monkey_list[monkey[:4]] = eval(str(defined_monkey_list[monkey[7:11]])+monkey[12]+str(defined_monkey_list[monkey[14:]]))
+            if monkey[7:11] in defined_monkey_dict and monkey[14:] in defined_monkey_dict:
+                defined_monkey_dict[monkey[:4]] = eval(str(defined_monkey_dict[monkey[7:11]])+monkey[12]+str(defined_monkey_dict[monkey[14:]]))
                 undefined_monkey_list.remove(monkey)
 
-print(defined_monkey_list["root"])
+print(defined_monkey_dict["root"])
