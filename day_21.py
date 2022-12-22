@@ -1617,7 +1617,7 @@ tztz = 19
 cnmf = 5
 bqpl = chts / qzcv
 pcwg = fpdf + trfn"""
-
+#part 1
 undefined_monkey_list = monkey_list.split("\n")
 defined_monkey_dict = {}
 while undefined_monkey_list:
@@ -1634,3 +1634,35 @@ while undefined_monkey_list:
                 undefined_monkey_list.remove(monkey)
 
 print(defined_monkey_dict["root"])
+
+#part 2
+#root = vpmn + pqtt
+def root_difference(human_value: int) -> int:
+    """calculates the difference between vpmn and pqtt, should return 0 if  vpmn == pqtt is True"""
+    undefined_monkey_list = monkey_list.split("\n")
+    undefined_monkey_list.remove("humn = 4053")
+    defined_monkey_dict = {}
+    defined_monkey_dict["humn"] = human_value  
+    while undefined_monkey_list:
+        for monkey in undefined_monkey_list[:]:
+            if monkey[:4] == "root":
+                if "vpmn" in defined_monkey_dict and "pqtt" in defined_monkey_dict:
+                    return defined_monkey_dict["vpmn"] - defined_monkey_dict["pqtt"]
+        
+            for number in "1234567890":
+                if number in monkey:
+                    if monkey in undefined_monkey_list:
+                        defined_monkey_dict[monkey[:4]] = eval(monkey[7:])
+                        undefined_monkey_list.remove(monkey)
+        
+            if monkey in undefined_monkey_list:
+                if monkey[7:11] in defined_monkey_dict and monkey[14:] in defined_monkey_dict:
+                    defined_monkey_dict[monkey[:4]] = eval(str(defined_monkey_dict[monkey[7:11]])+monkey[12]+str(defined_monkey_dict[monkey[14:]]))
+                    undefined_monkey_list.remove(monkey)
+
+#i slowly lowered the bounds by hand bc cba to code a binary search
+for i in range(3769668716700, 3769668716720):
+    #print(root_difference(i))
+    if root_difference(i) != abs(root_difference(i)):
+        break
+print(i-1)
