@@ -53,16 +53,16 @@ for i, row in enumerate(heightmap):
             end = (i,j)
             heightmap[i][j] = "z"
 
-visited = set()
 from collections import deque
 
-def get_neighbours(node: tuple) -> list[tuple]:
+def get_neighbours(node: tuple) -> list:
     x, y = node
     return [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
 
 def BFS(node: tuple) -> int:
     min_depth = 10000
     queue = deque()
+    visited = set()
     node = (*node, 0)
     current_x, current_y, depth = node
     queue.append(node)
@@ -75,7 +75,7 @@ def BFS(node: tuple) -> int:
         visited.add((current_x, current_y))
         for neighbour in get_neighbours((current_x, current_y)):
             new_x, new_y = neighbour
-            if new_x > 40 or new_x < 0 or new_y > 159 or new_y < 0:
+            if new_x > 40 or new_x < 0 or new_y > 159 or new_y < 0 or neighbour in visited:
                 continue
             if ord(heightmap[new_x][new_y]) <= ord(heightmap[current_x][current_y])+1 and neighbour not in visited:
                 queue.append((new_x, new_y, depth+1))
