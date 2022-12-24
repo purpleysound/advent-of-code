@@ -67,17 +67,15 @@ def BFS(node: tuple) -> int:
     current_x, current_y, depth = node
     queue.append(node)
     while queue:
-        if len(visited) % 400 == 0:
-            print(len(visited))
         current_x, current_y, depth = queue.popleft()
         if (current_x, current_y) == end:
             min_depth = min(depth, min_depth)
         visited.add((current_x, current_y))
         for neighbour in get_neighbours((current_x, current_y)):
             new_x, new_y = neighbour
-            if new_x > 40 or new_x < 0 or new_y > 159 or new_y < 0 or neighbour in visited:
+            if new_x > 40 or new_x < 0 or new_y > 158 or new_y < 0 or neighbour in visited:
                 continue
-            if ord(heightmap[new_x][new_y]) <= ord(heightmap[current_x][current_y])+1 and neighbour not in visited:
+            if ord(heightmap[new_x][new_y]) <= ord(heightmap[current_x][current_y])+1:
                 queue.append((new_x, new_y, depth+1))
     
     return min_depth
