@@ -53,34 +53,58 @@ for i, row in enumerate(heightmap):
             end = (i,j)
             heightmap[i][j] = "z"
 
-from collections import deque
+from collections import deque, defaultdict
 
 def get_neighbours(node: tuple) -> list:
     x, y = node
     return [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
 
-def BFS(node: tuple) -> int:
-    min_depth = 10000
+def BFS(start_node: tuple) -> int:
     queue = deque()
-    visited = set()
-    node = (*node, 0)
-    current_x, current_y, depth = node
-    queue.append(node)
+    current_x, current_y = start_node
+    queue.append(start_node)
+    distance = defaultdict(lambda: 10000)
+    distance[start_node] = 0
     while queue:
-        current_x, current_y, depth = queue.popleft()
+        print(len(distance))
+        current_x, current_y = queue.popleft()
         if (current_x, current_y) == end:
-            min_depth = min(depth, min_depth)
-        visited.add((current_x, current_y))
+            return distance[end]
         for neighbour in get_neighbours((current_x, current_y)):
             new_x, new_y = neighbour
-            if new_x > 40 or new_x < 0 or new_y > 158 or new_y < 0 or neighbour in visited:
+            if new_x not in range(len(heightmap)) or new_y not in range(len(heightmap[0])):
                 continue
             if ord(heightmap[new_x][new_y]) <= ord(heightmap[current_x][current_y])+1:
-                queue.append((new_x, new_y, depth+1))
+                current_distance = distance[(current_x, current_y)] + 1 
+                if current_distance+1 < distance[neighbour]:
+                    queue.append((new_x, new_y))
+                    distance[neighbour] = current_distance
     
-    return min_depth
+    return "didn't reach goal"
 
 print(BFS(start))
-    
-        
 
+def BFS2(start_node: tuple) -> int:
+    As = [(x, y) for y, letter in enumerate(row) for x, row in enumerate(heightmap) if heightmap[x][y] == "a"]
+    print(As)
+    queue = deque()
+    current_x, current_y = start_node
+    queue.append(start_node)
+    distance = defaultdict(lambda: 10000)
+    distance[start_node] = 0
+    while queue:
+        print(len(distance))
+        current_x, current_y = queue.popleft()
+        if (current_x, current_y) in As:
+            return distance[((current_x, current_y))]
+        for neighbour in get_neighbours((current_x, current_y)):
+            new_x, new_y = neighbour
+            if new_x not in range(len(heightmap)) or new_y not in range(len(heightmap[0])):
+                continue
+            if ord(heightmap[new_x][new_y]) >= ord(heightmap[current_x][current_y])-1:
+                current_distance = distance[(current_x, current_y)] + 1 
+                if current_distance+1 < distance[neighbour]:
+                    queue.append((new_x, new_y))
+                    distance[neighbour] = current_distance
+        
+print(BFS2(end))
