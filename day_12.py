@@ -66,7 +66,6 @@ def BFS(start_node: tuple) -> int:
     distance = defaultdict(lambda: 10000)
     distance[start_node] = 0
     while queue:
-        print(len(distance))
         current_x, current_y = queue.popleft()
         if (current_x, current_y) == end:
             return distance[end]
@@ -86,14 +85,12 @@ print(BFS(start))
 
 def BFS2(start_node: tuple) -> int:
     As = [(x, y) for y, letter in enumerate(row) for x, row in enumerate(heightmap) if heightmap[x][y] == "a"]
-    print(As)
     queue = deque()
     current_x, current_y = start_node
     queue.append(start_node)
     distance = defaultdict(lambda: 10000)
     distance[start_node] = 0
     while queue:
-        print(len(distance))
         current_x, current_y = queue.popleft()
         if (current_x, current_y) in As:
             return distance[((current_x, current_y))]
