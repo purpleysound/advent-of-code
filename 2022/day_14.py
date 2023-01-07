@@ -169,7 +169,12 @@ big_list_of_rocks = """487,28 -> 487,26 -> 487,28 -> 489,28 -> 489,26 -> 489,28 
 476,91 -> 476,94 -> 473,94 -> 473,98 -> 487,98 -> 487,94 -> 481,94 -> 481,91
 484,163 -> 484,162 -> 484,163 -> 486,163 -> 486,154 -> 486,163 -> 488,163 -> 488,162 -> 488,163 -> 490,163 -> 490,159 -> 490,163 -> 492,163 -> 492,153 -> 492,163 -> 494,163 -> 494,162 -> 494,163 -> 496,163 -> 496,159 -> 496,163 -> 498,163 -> 498,161 -> 498,163 -> 500,163 -> 500,160 -> 500,163
 481,48 -> 486,48
-466,104 -> 471,104"""
+466,104 -> 471,104
+-1000,165 -> 1000,165"""
+
+testlist_of_rocks = """498,4 -> 498,6 -> 496,6
+503,4 -> 502,4 -> 502,9 -> 494,9
+-1000,11 -> 1000,11"""
 
 coordinates = big_list_of_rocks.split("\n")
 for i, line in enumerate(coordinates):
@@ -181,17 +186,17 @@ def get_line(coordinates_1: tuple, coordinates_2: tuple) -> list:
     line = []
     if coordinates_1[0] == coordinates_2[0]:
         if coordinates_1[1] < coordinates_2[1]:
-            for y_value in range(coordinates_1[1], coordinates_2[1]):
+            for y_value in range(coordinates_1[1], coordinates_2[1]+1):
                 line.append((coordinates_1[0], y_value))
         else:
-            for y_value in range(coordinates_2[1], coordinates_1[1]):
+            for y_value in range(coordinates_2[1], coordinates_1[1]+1):
                 line.append((coordinates_1[0], y_value))
     elif coordinates_1[1] == coordinates_2[1]:
         if coordinates_1[0] < coordinates_2[0]:
-            for x_value in range(coordinates_1[0], coordinates_2[0]):
+            for x_value in range(coordinates_1[0], coordinates_2[0]+1):
                 line.append((x_value, coordinates_1[1]))
         else:
-            for x_value in range(coordinates_2[0], coordinates_1[0]):
+            for x_value in range(coordinates_2[0], coordinates_1[0]+1):
                 line.append((x_value, coordinates_1[1]))
     else:
         print("coordinates are diagonal :/")
@@ -203,8 +208,6 @@ def print_grid(rocks):
     x_maximum = -1
     y_minimum = 100000
     y_maximum = -1
-    for rock in rocks:
-        if rock[0]
 
 rocks = []
 for chain_no, chain in enumerate(coordinates):
@@ -214,5 +217,42 @@ for chain_no, chain in enumerate(coordinates):
         small_list_of_rocks = get_line(chain[pair_index-1], pair)
         for rock in small_list_of_rocks:
             rocks.append(rock)
-print(rocks)
-print_grid(rocks)
+#print(rocks)
+
+START = (500, 0)
+
+def add_coords(tuple1: tuple, tuple2: tuple) -> tuple:
+    x, y = tuple1
+    dx, dy = tuple2
+    return x+dx, y+dy
+
+def drop(rocks: set):
+    stopped = False
+    coords = START
+    while not stopped:
+        if coords[1] > 200:
+            raise ValueError("rock escaped floor")
+        if add_coords(coords, (0, +1)) not in rocks:
+            coords = add_coords(coords, (0, +1))
+        elif add_coords(coords, (-1, +1)) not in rocks:
+            coords = add_coords(coords, (-1, +1))
+        elif add_coords(coords, (+1, +1)) not in rocks :
+            coords = add_coords(coords, (+1, +1))
+        else:
+            stopped = True
+    rocks.add(coords)
+    return rocks, False
+
+finished = False
+dropped = 0
+rocks = set(rocks)
+#floor = max(coord[1] for coord in rocks)+2
+#print(floor)
+while not finished:
+    rocks, finished = drop(rocks)
+    if (500, 0) in rocks:
+        print("500, 0 now in rocks")
+        finished = True
+    dropped += 1
+print(len(rocks))
+print(dropped) 
