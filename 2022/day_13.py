@@ -448,45 +448,39 @@ signal = """[[10],[4,3,5,[[],8,[4,3,10,9,4]],5],[[[6],[8]],9,1],[4,8,2,[[],[2,1,
 [[2,4,6,[7,[0,4,8,0],[4,0],[0,6,10],7]],[1,4,[[5,8,6,9,2],[1,8]]],[4,3,[10],5],[8,[3,7],9,3,10],[6,2,[[0,6],5,[9],10],9,[]]]
 [[[[10,6,9,1,5],[5],8],7,[[5,3],10,[10,10,6,1,7],[],[6,2,6,7,4]],[4,[0,1],[9,3],[9,8,9,0,8]],[7,[6,6,2]]],[8,4],[0]]"""
 
-
 pairs = signal.split("\n\n")
 score = 0
 
-def left_first(left: list, right: list, base=True) -> bool:
-    for i, item in enumerate(left):
-        if type(item) == int:
-            try:
-                if type(right[i]) == int:
-                    if item < right[i]:
-                        return True
-                    if item > right[i]:
-                        return False
-                else:
-                    item = [item]
-                    if left_first(item, right[i], False) == None:
-                        pass
-                    else:
-                        return left_first(item, right[i], False)
-            except IndexError:
-                return False
-        else:
-            try:
-                if type(right[i]) == int:
-                    right[i] = [right[i]]
-                if left_first(item, right[i], False) == None:
-                    pass
-                else:
-                    return left_first(item, right[i], False)
-            except IndexError:
-                return False
-    return True if base else None
-        
+def left_first(left: list, right: list) -> int:
+    for a, b in zip(left, right):
+        if isinstance(a, int) and isinstance(b, int):
+            if a == b: 
+                continue
+            return b - a
+        if isinstance(a, list) and isinstance(b, list):
+            if left_first(a, b):
+                return left_first(a, b)
+            continue
+        if isinstance(a, int):
+            return left_first([a], b)
+        if isinstance(b, int):
+            return left_first(a, [b])
+    
+    return 0 if len(left) == len(right) else (1 if len(left) < len(right) else -1)
     
 
 for i, pair in enumerate(pairs):
     left = eval(pair.split("\n")[0])
     right = eval(pair.split("\n")[1])
-    if left_first(left, right):
+    if left_first(left, right) > 0:
         score += i+1
 
 print(score)
+
+# part 2
+from functools import cmp_to_key
+signals = signal.split()
+signals.append("[[2]]")
+signals.append("[[6]]")
+signals.sort(key=cmp_to_key(lambda a, b: left_first(eval(a), eval(b))), reverse=True)
+print((signals.index("[[2]]")+1)*(signals.index("[[6]]")+1))
