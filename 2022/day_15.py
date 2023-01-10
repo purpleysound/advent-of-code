@@ -27,25 +27,10 @@ Sensor at x=2724475, y=1736595: closest beacon is at x=2870962, y=2380928"""
 
 
 CHECK_Y = 2000000
-from collections import deque
 
-def get_neighbours(node: tuple) -> tuple:
-    x, y = node
-    return (x+1, y), (x-1, y), (x, y+1), (x, y-1)
-
-def no_beacons(sensor: tuple, beacon: tuple) -> set:
-    """Returns a set of coordinates where there cannot be beacons"""
-    visited = set()
-    queue = deque([sensor])
-    while queue:
-        node = queue.popleft()
-        if node == beacon:
-            return visited
-        for neighbour in get_neighbours(node):
-            if neighbour not in visited and abs(CHECK_Y-neighbour[1]) <= abs(CHECK_Y-node[1]):
-                queue.append(neighbour)
-                visited.add(neighbour)
-    raise AssertionError("Queue emptied and beacon wasn't found")
+def get_distance(a:tuple, b:tuple) -> int:
+    (ax, ay), (bx, by) = a, b
+    return abs(ax-bx) + abs(ay-by)
 
 sensors = []
 beacons = []
@@ -53,10 +38,18 @@ for line in input.split("\n"):
     line = line.split(" ")
     sensors.append((int(line[2][2:-1]), int(line[3][2:-1])))
     beacons.append((int(line[8][2:-1]), int(line[9][2:-1])))
-print("parsed data")
-cant = set()
-for i, (sensor, beacon) in enumerate(zip(sensors, beacons)):
-    print(f"finished {i} out of {len(sensors)}")
-    cant.update((location for location in no_beacons(sensor, beacon) if location[1] == CHECK_Y))
 
-print(len(cant))
+locations = 0
+sensor_to_dist_dict = {sensor: get_distance(sensor, beacon) for sensor, beacon in zip(sensors, beacons)}
+print(sensor_to_dist_dict)
+for x in range(-1000000, 50000000):
+    point = (x, CHECK_Y)
+    if point in beacons:
+        continue
+    for sensor in sensors:
+        if get_distance(sensor, point) <= sensor_to_dist_dict[sensor]:
+            locations += 1 # triggers too much
+            break
+        
+
+print(locations)
