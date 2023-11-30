@@ -4,6 +4,15 @@ def import_input(day):
         data = f.read()
     return data
 
+def vector_add(v1, v2):
+    return tuple(map(sum, zip(v1, v2)))
+
+def vector_scale(v, s):
+    return tuple(x*s for x in v)
+
+def get_nums(string:str):
+    """Returns a list of all numbers in a string"""
+    return [int(x) for x in string.split() if x.isnumeric()]
 
 if __name__ == "__main__":
     import os
