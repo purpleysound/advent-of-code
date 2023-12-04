@@ -1,3 +1,4 @@
+import re
 
 def import_input(day):
     with open(f"inputs/day_{str(day)}.txt", "r") as f:
@@ -12,7 +13,7 @@ def vector_scale(v, s):
 
 def get_nums(string:str):
     """Returns a list of all numbers in a string"""
-    return [int(x) for x in string.split() if x.isnumeric()]
+    return list(map(int, re.findall(r"\d+", string)))
 
 if __name__ == "__main__":
     import os
