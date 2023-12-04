@@ -25,23 +25,46 @@ for card in cards:
     total += 2**(count-1)
 print(total)
 
-@lru_cache
-def cacheable(card):
-    start, end = card.split(":")
-    card_no = int(start[4:])
-    winnings, gotten = end.split("|")
+# @lru_cache
+# def cacheable(card):
+#     start, end = card.split(":")
+#     card_no = int(start[4:])
+#     winnings, gotten = end.split("|")
+#     winnings = set(aoc.get_nums(winnings))
+#     gotten = aoc.get_nums(gotten)
+#     count = 0
+#     for num in gotten:
+#         if num in winnings:
+#             count += 1
+#     return card_no, count
+    
+
+# cards = data.split("\n")
+# for card in cards:
+#     card_no, count = cacheable(card)
+#     for i in range(card_no,card_no+count):
+#         cards.append(cards[i])
+# print(len(cards))
+
+cards = data.split("\n")
+count_dict = dict()
+card_dict = {num+1: 1 for num in range(len(cards))}
+for card in cards:
+    card = card.split(":")[1]
+total = 0
+for i, card in enumerate(cards):
+    winnings, gotten = card.split("|")
     winnings = set(aoc.get_nums(winnings))
     gotten = aoc.get_nums(gotten)
     count = 0
     for num in gotten:
         if num in winnings:
             count += 1
-    return card_no, count
-    
+    count_dict[i+1] = count
 
-cards = data.split("\n")
-for card in cards:
-    card_no, count = cacheable(card)
-    for i in range(card_no,card_no+count):
-        cards.append(cards[i])
-print(len(cards))
+for i in range(1, len(cards)+1):
+    card_no = i
+    count = count_dict[card_no]
+    for j in range(card_no,card_no+count):
+        card_dict[j+1] += card_dict[card_no]
+print(sum(card_dict.values()))
