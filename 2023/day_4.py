@@ -9,10 +9,10 @@ data = aoc.import_input(4)
 # Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 # Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
 cards = data.split("\n")
-for card in cards:
-    card = card.split(":")[1]
+    
 total = 0
 for card in cards:
+    card = card.split(":")[1]
     winnings, gotten = card.split("|")
     winnings = set(aoc.get_nums(winnings))
     gotten = aoc.get_nums(gotten)
@@ -52,6 +52,7 @@ card_dict = {num+1: 1 for num in range(len(cards))}
 
 total = 0
 for i, card in enumerate(cards):
+    card = card.split(":")[1]
     winnings, gotten = card.split("|")
     winnings = set(aoc.get_nums(winnings))
     gotten = aoc.get_nums(gotten)
