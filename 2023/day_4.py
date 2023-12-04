@@ -49,8 +49,7 @@ print(total)
 cards = data.split("\n")
 count_dict = dict()
 card_dict = {num+1: 1 for num in range(len(cards))}
-for card in cards:
-    card = card.split(":")[1]
+
 total = 0
 for i, card in enumerate(cards):
     winnings, gotten = card.split("|")
