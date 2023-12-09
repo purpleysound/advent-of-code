@@ -15,6 +15,10 @@ def get_nums(string:str):
     """Returns a list of all numbers in a string"""
     return list(map(int, re.findall(r"\d+", string)))
 
+def get_nums_negative(string:str):
+    """Returns a list of all numbers in a string, including but not exclusive to negative numbers"""
+    return list(map(int, re.findall(r"-?\d+", string)))
+
 if __name__ == "__main__":
     import os
     os.mkdir("inputs")
