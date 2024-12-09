@@ -1,3 +1,5 @@
-import aoc
+from aoc import *
 
-data = aoc.import_input(22)
+data = import_input(22)
+
+
