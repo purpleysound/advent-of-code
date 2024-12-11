@@ -72,6 +72,11 @@ def grid(data):
 
 grid_ = grid
 
+def int_grid(data):
+    return [*map(lambda x: list(map(int, x)), data.split("\n"))]
+
+igrid = ig = ig_ = int_grid
+
 def mag1(point):
     return sum(map(abs, point))
 
@@ -129,6 +134,9 @@ iup = iup_ = (-1, 0)
 idown = idown_ = (1, 0)
 ileft = ileft_ = (0, -1)
 iright = iright_ = (0, 1)
+
+dirs4 = dirs4_ = [iup, idown, ileft, iright]
+dirs8 = dirs8_ = [(r, c) for r in (-1, 0, 1) for c in (-1, 0, 1) if (r, c) != (0, 0)]
 
 def zero(n):
     return tuple(0 for _ in range(n))
