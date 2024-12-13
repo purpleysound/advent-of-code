@@ -3,6 +3,7 @@ import math
 import pyperclip
 import functools
 import itertools
+import collections
 
 
 printv = print_ = print

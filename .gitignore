@@ -133,6 +133,7 @@ cython_debug/
 .vscode/
 
 */inputs/
+get_input.py
 *.png
 *.exe
 *.hi
