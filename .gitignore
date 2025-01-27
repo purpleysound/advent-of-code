@@ -138,3 +138,4 @@ get_input.py
 *.exe
 *.hi
 *.o
+*.class
