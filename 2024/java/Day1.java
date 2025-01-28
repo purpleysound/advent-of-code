@@ -1,24 +1,12 @@
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class Day1 {
     public static void main(String[] args) {
-        String input = readFile("../inputs/day_1.txt");
+        String input = AOC.getInput(1);
         int[][] nums = parseInput(input);
         System.out.println(part1(nums[0], nums[1]));
         System.out.println(part2(nums[0], nums[1]));
-    }
-
-    private static String readFile(String path) {
-        try {
-            return new String(Files.readAllBytes(Paths.get(path)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     private static int[][] parseInput(String input) {
