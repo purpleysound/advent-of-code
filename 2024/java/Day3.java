@@ -8,6 +8,7 @@ public class Day3 {
     public static void main(String[] args) {
         String input = AOC.getInput(3);
         System.out.println(part1(input));
+        System.out.println(part2(input));
     }
 
     private static int part1(String input) {
@@ -25,6 +26,23 @@ public class Day3 {
             muls[i] = parseMatch(matches[i]);
         }
         return muls;
+    }
+
+    private static int part2(String input) {
+        String[] matches = regexMatches(input, "(mul\\(\\d+,\\d+\\))|(do\\(\\))|(don't\\(\\))");
+        int total = 0;
+        boolean enabled = true;
+        for (String match : matches) {
+            if (match.equals("do()")) {
+                enabled = true;
+            } else if (match.equals("don't()")) {
+                enabled = false;
+            } else if (enabled) {
+                int[] nums = parseMatch(match);
+                total += nums[0] * nums[1];
+            }
+        }
+        return total;
     }
 
     private static String[] regexMatches(String input, String regex) {
