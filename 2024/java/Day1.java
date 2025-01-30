@@ -1,9 +1,10 @@
 
 import java.util.Arrays;
+import aoc.FileHandler;
 
 public class Day1 {
     public static void main(String[] args) {
-        String input = AOC.getInput(1);
+        String input = FileHandler.getInput(1);
         int[][] nums = parseInput(input);
         System.out.println(part1(nums[0], nums[1]));
         System.out.println(part2(nums[0], nums[1]));

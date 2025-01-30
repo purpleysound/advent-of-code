@@ -1,9 +1,10 @@
 
 import java.util.Arrays;
+import aoc.FileHandler;
 
 public class Day2 {
     public static void main(String[] args) {
-        String input = AOC.getInput(2);
+        String input = FileHandler.getInput(2);
         String[] lines = input.split("\n");
         int sum1 = 0;
         int sum2 = 0;

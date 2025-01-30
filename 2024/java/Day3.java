@@ -1,12 +1,15 @@
 
 import java.util.regex.Pattern;
+
+import aoc.FileHandler;
+
 import java.util.regex.Matcher;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Day3 {
     public static void main(String[] args) {
-        String input = AOC.getInput(3);
+        String input = FileHandler.getInput(3);
         System.out.println(part1(input));
         System.out.println(part2(input));
     }
