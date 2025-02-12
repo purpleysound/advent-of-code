@@ -20,7 +20,7 @@ public class Day7 {
         }
         System.out.println(count1);
         System.out.println(count2);
-    }    
+    }
 
     private static long parseTarget(String line) {
         return Long.parseLong(line.split(":")[0]);
@@ -28,19 +28,19 @@ public class Day7 {
 
     private static int[] parseNumbers(String line) {
         return Stream.of(line.split(": ")[1].split(" "))
-            .mapToInt(Integer::parseInt)
-            .toArray();
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
+
     public static boolean part1(long target, int[] nums) {
-        for (int i = 0; i < Math.pow(2, nums.length-1); i++) {
+        for (int i = 0; i < Math.pow(2, nums.length - 1); i++) {
             int ops = i;
             int j = 1;
             long total = nums[0];
-            for (int k = 0; k < nums.length-1; k++) {
+            for (int k = 0; k < nums.length - 1; k++) {
                 if ((ops % 2) == 0) {
                     total += nums[j];
-                }
-                else {
+                } else {
                     total *= nums[j];
                 }
                 ops /= 2;
@@ -52,21 +52,18 @@ public class Day7 {
         }
         return false;
     }
-    
 
     public static boolean part2(long target, int[] nums) {
-        for (int i = 0; i < Math.pow(3, nums.length-1); i++) {
+        for (int i = 0; i < Math.pow(3, nums.length - 1); i++) {
             int ops = i;
             int j = 1;
             long total = nums[0];
-            for (int k = 0; k < nums.length-1; k++) {
+            for (int k = 0; k < nums.length - 1; k++) {
                 if ((ops % 3) == 0) {
                     total += nums[j];
-                }
-                else if ((ops % 3) == 1) {
+                } else if ((ops % 3) == 1) {
                     total *= nums[j];
-                }
-                else {
+                } else {
                     total = Long.parseLong("" + total + nums[j]);
                 }
                 ops /= 3;

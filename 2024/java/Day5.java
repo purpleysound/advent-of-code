@@ -41,7 +41,7 @@ public class Day5 {
         int middle;
         for (int[] pages : pagesArray) {
             if (isOrdered(rules, pages)) {
-                middle = pages[pages.length/2];
+                middle = pages[pages.length / 2];
                 count += middle;
             }
         }
@@ -77,7 +77,7 @@ public class Day5 {
                 continue;
             }
             int[] orderedPages = orderPages(rules, pages);
-            int middle = orderedPages[orderedPages.length/2];
+            int middle = orderedPages[orderedPages.length / 2];
             count += middle;
         }
         return count;

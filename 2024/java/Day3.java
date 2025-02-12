@@ -60,9 +60,9 @@ public class Day3 {
 
     private static int[] parseMatch(String match) {
         String[] stringNums = match.split(",");
-        
+
         stringNums[0] = stringNums[0].substring(4);
         stringNums[1] = stringNums[1].substring(0, stringNums[1].length() - 1);
-        return new int[] {Integer.parseInt(stringNums[0]), Integer.parseInt(stringNums[1])};
+        return new int[] { Integer.parseInt(stringNums[0]), Integer.parseInt(stringNums[1]) };
     }
 }

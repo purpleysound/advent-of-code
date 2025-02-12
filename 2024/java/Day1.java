@@ -19,7 +19,7 @@ public class Day1 {
             nums1[i] = Integer.parseInt(nums[0].strip());
             nums2[i] = Integer.parseInt(nums[1].strip());
         }
-        return new int[][] {nums1, nums2};
+        return new int[][] { nums1, nums2 };
     }
 
     private static int part1(int[] nums1, int[] nums2) {

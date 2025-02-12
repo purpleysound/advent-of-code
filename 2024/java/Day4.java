@@ -69,34 +69,30 @@ public class Day4 {
     }
 
     private static boolean findMAS(char[][] grid, int r, int c) {
-        if (r-1 < 0 || r+1 >= grid.length || c-1 < 0 || c+1 >= grid[0].length) {
+        if (r - 1 < 0 || r + 1 >= grid.length || c - 1 < 0 || c + 1 >= grid[0].length) {
             return false;
         }
-        if (grid[r-1][c-1] == 'M') {
-            if (grid[r+1][c+1] != 'S') {
+        if (grid[r - 1][c - 1] == 'M') {
+            if (grid[r + 1][c + 1] != 'S') {
                 return false;
             }
-        }
-        else if (grid[r-1][c-1] == 'S') {
-            if (grid[r+1][c+1] != 'M') {
+        } else if (grid[r - 1][c - 1] == 'S') {
+            if (grid[r + 1][c + 1] != 'M') {
                 return false;
             }
-        }
-        else {
+        } else {
             return false;
         }
 
-        if (grid[r-1][c+1] == 'M') {
-            if (grid[r+1][c-1] != 'S') {
+        if (grid[r - 1][c + 1] == 'M') {
+            if (grid[r + 1][c - 1] != 'S') {
                 return false;
             }
-        } 
-        else if (grid[r-1][c+1] == 'S') {
-            if (grid[r+1][c-1] != 'M') {
+        } else if (grid[r - 1][c + 1] == 'S') {
+            if (grid[r + 1][c - 1] != 'M') {
                 return false;
             }
-        }
-        else {
+        } else {
             return false;
         }
 

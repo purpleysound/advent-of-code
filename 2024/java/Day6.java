@@ -58,8 +58,7 @@ public class Day6 {
             visited.add(pos.x + "," + pos.y);
             if (isWallAhead(grid, pos, vec)) {
                 rotate(vec);
-            }
-            else {
+            } else {
                 pos = pos.add(vec);
             }
         }
@@ -86,8 +85,7 @@ public class Day6 {
             visited.add(pos.x + "," + pos.y);
             if (isWallAhead(grid, pos, vec)) {
                 rotate(vec);
-            }
-            else {
+            } else {
                 pos = pos.add(vec);
                 steps++;
             }

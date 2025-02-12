@@ -23,7 +23,7 @@ public class Day2 {
         }
         System.out.println(sum1);
         System.out.println(sum2);
-    }    
+    }
 
     private static boolean valid1(int[] nums) {
         int[] deltas = new int[nums.length - 1];
