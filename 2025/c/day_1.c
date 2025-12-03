@@ -54,7 +54,7 @@ int main() {
     }
     printf("%i\r\n", zeros);
 
-    free_string_array(&lines);
+    free(lines.array);
     free(input);
     return 0;
 }
