@@ -126,7 +126,7 @@ Grid read_grid(char* filename) {
         strcpy(grid.grid[i], lines.array[i]);
     }
 
-    free_string_array(lines);
+    free(lines.array);
     free(input);
     return grid;
 }
